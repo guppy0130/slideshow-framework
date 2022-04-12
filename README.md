@@ -3,7 +3,8 @@
 ## Getting started
 
 * Put together your template
-  * should have an element whose `innerText` property is the markdown to parse
+  * should have an element with id `#content` whose `innerText` property
+    contains the markdown to parse
   * example is [template.html](template.html)
   * include markdown-it and, optionally, highlight.js
 * Build the TS and include in project
