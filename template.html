@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/default.min.css">
+    <style></style>
+  </head>
+
+  <body>
+    <textarea id="content">
+# title
+
+Some body text.
+
+```sql
+SELECT * FROM table LIMIT 10
+```
+
+Some additional text
+
+```text
+A plain text block
+```
+
+---
+
+# Slide 2
+
+* More content
+* But this time in a bullet list
+
+```javascript
+console.log("another code block");
+```
+
+Content not in bullets.
+
+And --- a triple dash in a line.
+
+---
+
+# third slide
+
+please help
+
+```asdf
+typescript hurty
+```
+
+"quote testing"
+
+    </textarea>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/12.3.2/markdown-it.min.js"
+    integrity="sha512-TIDbN32lXOg2Mw1VcnKrQLZgfALryJogWCu/NHWtlMCR1jget+mOwMtdehBBZz2f9PKeK2AQPwVxkbl4u/1H5g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+  <script src="dest/index.js"></script>
+  <script>
+    var slideshow = create_slideshow({
+      // what should separate slides? default is `\n---\n`
+      slide_separator: "\n---\n",
+      // you can pass in a custom markdown-it renderer here, and we'll just call
+      // md.render() with your passed-in instance. This allows you to configure
+      // your markdown-it plugins, your hljs configuration, etc.
+      markdown_renderer: false,
+      // keybindings to navigate between slides
+      keys: {}
+    });
+  </script>
+
+</html>
