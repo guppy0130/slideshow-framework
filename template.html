@@ -3,8 +3,11 @@
 
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/default.min.css">
-    <style></style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/default.min.css"
+      integrity="sha512-hasIneQUHlh06VNBe7f6ZcHmeRTLIaQWFd43YriJ0UND19bvYRauxthDg8E4eVNPm9bRUhr5JGeqH7FRFXQu5g=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/dest/index.css">
+    <!-- <link rel="stylesheet" href="/dest/theme.css"> -->
   </head>
 
   <body>
@@ -45,28 +48,40 @@ And --- a triple dash in a line.
 please help
 
 ```asdf
-typescript hurty
+typescript good
 ```
 
 "quote testing"
+
+???
+
+presenter notes
+
+**with some markup**
+
+---
+
+slide after notes
+
+---
 
     </textarea>
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/12.3.2/markdown-it.min.js"
     integrity="sha512-TIDbN32lXOg2Mw1VcnKrQLZgfALryJogWCu/NHWtlMCR1jget+mOwMtdehBBZz2f9PKeK2AQPwVxkbl4u/1H5g=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"
+    integrity="sha512-yUUc0qWm2rhM7X0EFe82LNnv2moqArj5nro/w1bi05A09hRVeIZbN6jlMoyu0+4I/Bu4Ck/85JQIU82T82M28w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="dest/index.js"></script>
   <script>
-    var slideshow = create_slideshow({
+    var slideshow = createSlideshow({
       // what should separate slides? default is `\n---\n`
-      slide_separator: "\n---\n",
+      slideSeparator: "\n---\n",
       // you can pass in a custom markdown-it renderer here, and we'll just call
       // md.render() with your passed-in instance. This allows you to configure
       // your markdown-it plugins, your hljs configuration, etc.
-      markdown_renderer: false,
-      // keybindings to navigate between slides
-      keys: {}
+      markdownRenderer: false
     });
   </script>
 
