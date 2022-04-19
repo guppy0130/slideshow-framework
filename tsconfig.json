@@ -1,8 +1,15 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "sourceMap": true,
+    "sourceMap": false,
     "outDir": "dest",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "removeComments": true,
+  },
+  "watchOptions": {
+    "excludeDirectories": [
+      "**/node_modules",
+      "dest"
+    ]
   }
 }
