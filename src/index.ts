@@ -1,29 +1,34 @@
 // wrap this all up inside a function so we can call it when we want to from
 // the parent
-const createSlideshow = (options: {
-  slideSeparator: string;
-  markdownRenderer: markdownit;
+const createSlideshow = (options?: {
+  slideSeparator?: string;
+  markdownRenderer?: markdownit;
 }) => {
   // slideshow properties
   let slideIndex = 0;
   let extrasVisible = true;
 
   // fetch content
-  const slideSeparator = options["slideSeparator"] || "\n---\n";
+  const slideSeparator = options?.slideSeparator ?? "\n---\n";
   const presenterNotesSeparator = "\n???\n";
 
   // hide the original markdown content
   let rawContentElement = document.getElementById("content");
+  if (rawContentElement === null) {
+    console.log("Missing content element? Is your template correct?");
+    return;
+  }
 
   // split the content into an array of markdown chunks. each chunk is a slide.
   let rawContentArray = rawContentElement.innerText.split(slideSeparator);
 
   // extract presenter notes from slides
   // the assumption is that presenter notes will follow the slide
-  let slideshowData: {
+  type slideshowDataType = {
     slide: string;
     presenterNotes: string;
-  }[] = [];
+  };
+  let slideshowData: slideshowDataType[] = [];
   for (const content of rawContentArray) {
     let [trueContent, presenterNotes] = content.split(
       presenterNotesSeparator,
@@ -48,8 +53,8 @@ const createSlideshow = (options: {
   };
   let md: markdownit;
   if (
-    options.markdownRenderer &&
-    options.markdownRenderer instanceof window.markdownit
+    options?.markdownRenderer &&
+    options?.markdownRenderer instanceof window.markdownit
   ) {
     md = options.markdownRenderer;
   } else {
@@ -65,7 +70,7 @@ const createSlideshow = (options: {
   extrasContainer.classList.add("extras-container");
 
   // initialize timer
-  let timerInterval: NodeJS.Timer;
+  let timerInterval: ReturnType<typeof setTimeout> | null = null;
   let slideshowTimer = 0;
   function renderTimer() {
     const h = Math.floor(slideshowTimer / 3600);
@@ -155,27 +160,30 @@ const createSlideshow = (options: {
   let contentContainer = document.createElement("main");
   contentContainer.id = "content-container";
   // place it at the end of the document
+  if (rawContentElement.parentNode === null) {
+    console.error("The raw content element should have body as its parent");
+    return;
+  }
   rawContentElement.parentNode.appendChild(contentContainer);
   contentContainer.appendChild(slideshowContainer);
   contentContainer.appendChild(extrasContainer);
 
   // add slides and presentation notes to their containers
-  let renderedSlideElements: {
+  type renderedSlideElementType = {
     slide: HTMLElement;
     presenterNotes: HTMLElement;
-  }[] = [];
-  for (const c of slideshowData) {
-    let slideElement: {
-      slide: HTMLElement;
-      presenterNotes: HTMLElement;
-    } = {
+  };
+  let renderedSlideElements: renderedSlideElementType[] = [];
+  for (const slideshowDataEntry of slideshowData) {
+    let slideElement: renderedSlideElementType = {
       slide: document.createElement("article"),
       presenterNotes: document.createElement("aside"),
     };
-    for (const key in c) {
+    let key: keyof slideshowDataType;
+    for (key in slideshowDataEntry) {
       let renderedContent = "";
-      if (c[key]) {
-        renderedContent = md.render(c[key]);
+      if (slideshowDataEntry[key]) {
+        renderedContent = md.render(slideshowDataEntry[key]);
       }
       let slide = slideElement[key];
       slide.innerHTML = renderedContent;
@@ -197,12 +205,14 @@ const createSlideshow = (options: {
     }
     // hide all the slides + presenter notes
     for (let slide of renderedSlideElements) {
-      for (const key in slide) {
+      let key: keyof renderedSlideElementType;
+      for (key in slide) {
         slide[key].hidden = true;
       }
     }
     // and then show the current slide
-    for (const key in renderedSlideElements[index]) {
+    let key: keyof renderedSlideElementType;
+    for (key in renderedSlideElements[index]) {
       if (!extrasVisible && key === "presenterNotes") {
         continue;
       }
@@ -252,7 +262,7 @@ const createSlideshow = (options: {
       }
       // general navigation based on the dictionary
       if (e.code in keys) {
-        keys[e.code]();
+        keys[e.code as keyof typeof keys]();
       }
       // use the number keys to get to a slide directly.
       // the first slide should map to key 1 (not zero-indexed).

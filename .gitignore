@@ -132,4 +132,6 @@ dist
 # TS build output
 dest/*
 # allow users to provide their own themes
-src/theme/*
+themes/*
+# presentations
+presentations/

@@ -56,9 +56,9 @@ notes. The presenter notes section supports markdown.
 
 ### CSS
 
-`src/*.scss` should be compiled to `dest/*.css`. Include `index.scss` at the
-minimum; this provides the logic for rendering/hiding slide elements. It also
-provides logic for printing slides.
+`src/*.scss` should be compiled to `dest/presentation/*.css`. Include
+`index.scss` at the minimum; this provides the logic for rendering/hiding slide
+elements. It also provides logic for printing slides.
 
 Your template can include its own theme; to get started, you can modify CSS for
 the following classes:
@@ -72,9 +72,59 @@ active.
 
 ### Printing
 
-The CSS in `index.scss` is configured so that each slide will print on its own
-page. This makes it easy for folks to print N-many on the same page via their
-printing options.
+The CSS in `src/index.scss` is configured so that each slide will print on its
+own page. This makes it easy for folks to print N-many on the same page via
+their printing options.
 
 The extras panel on the right in presenter's mode will not be visible during
 printing. You cannot print the presenter's notes at this time.
+
+## Framework
+
+### Pre-requisites
+
+#### Required
+
+* sass
+
+#### Suggested
+
+* typescript
+* ts-node
+* nodemon
+* serve
+
+### Usage
+
+```console
+$ ts-node index.ts -p presentations/test_presentation/test.md -t themes/example_theme
+Compile .\themes\example_theme with command make
+compiling scss
+compiling ts
+
+sass --no-source-map .:C:\Users\Nick\Documents\Git\slideshow-framework\dest\test
+pug3 template.pug --out C:\Users\Nick\Documents\Git\slideshow-framework\dest\test --obj '{"content":"# hello world\n\nthis is first slide content\n\n---\n\n# second slide\n\nmore content here\n\n---\n\n```js\nconsole.log(\"some code!\");\n```\n"}' --pretty
+
+  rendered C:\Users\Nick\Documents\Git\slideshow-framework\dest\test\template.html
+```
+
+You can then `serve` in the output directory, or use your webserver of choice.
+
+### Theme
+
+Provide your own theme with the following properties:
+
+* a Makefile (or some other build tool) that accepts the following environment
+  variables:
+  * `OUTPUT_LOCATION` - something like `dest/<presentation name>`
+  * `MARKDOWN_CONTENT` - a JSON-stringified dictionary, shell-escaped; the key
+    is `content`, and the value is the markdown.
+* You can choose the build tool, just update `index.ts` accordingly.
+* The template's `script` and `link`'s sources should refer to files next to the
+  rendered template.
+* The template directory can be placed in `themes/` (but is not strictly
+  necessary)
+
+### Presentation
+
+* Put presentations in `presentations` (not strictly necessary either)

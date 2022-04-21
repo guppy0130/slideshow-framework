@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "sourceMap": false,
+    "outDir": "dest",
+    "moduleResolution": "node",
+    "removeComments": true,
+    "strict": true,
+  },
+  "watchOptions": {
+    "excludeDirectories": [
+      "**/node_modules",
+      "dest"
+    ]
+  },
+  "include": [
+    "index.ts"
+  ]
+}

@@ -1,15 +1,10 @@
 {
+  "extends": "./src/tsconfig.json",
   "compilerOptions": {
-    "target": "ES2022",
-    "sourceMap": false,
-    "outDir": "dest",
-    "moduleResolution": "node",
-    "removeComments": true,
+    "esModuleInterop": true,
+    "module": "CommonJS"
   },
-  "watchOptions": {
-    "excludeDirectories": [
-      "**/node_modules",
-      "dest"
-    ]
-  }
+  "exclude": [
+    "index.ts"
+  ]
 }
