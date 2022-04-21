@@ -6,7 +6,7 @@ const createSlideshow = (options?: {
 }) => {
   // slideshow properties
   let slideIndex = 0;
-  let extrasVisible = true;
+  let extrasVisible = false;
 
   // fetch content
   const slideSeparator = options?.slideSeparator ?? "\n---\n";
@@ -50,6 +50,9 @@ const createSlideshow = (options?: {
       }
     },
     typographer: true,
+    // considered semi-safe, because you're providing all the content.
+    // allows directly adding class names, etc. to slides/content for themes.
+    html: true,
   };
   let md: markdownit;
   if (
