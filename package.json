@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:css": "sass src:dest",
     "build:js": "tsc",
-    "dev:css": "sass -w src:dest",
-    "dev:js": "tsc --watch",
+    "watch:css": "sass -w src:dest",
+    "watch:js": "tsc --watch",
     "clean": "rm -r dest"
   },
   "author": "",

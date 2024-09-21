@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ES2022",
     "sourceMap": false,
-    "outDir": "dest",
+    "outDir": "../dest",
     "moduleResolution": "node",
     "removeComments": true,
     "strict": true,
